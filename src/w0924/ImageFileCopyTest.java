@@ -11,8 +11,8 @@ public class ImageFileCopyTest {
         FileOutputStream fos = null;
 
         try {
-            fis = new FileInputStream("C:/Users/AI-510-MA/Pictures/ive02.jpg");
-            fos = new FileOutputStream("D:/FileTest/CopyImageFile1.jpg");
+            fis = new FileInputStream("D:/HTML_Project/2025_1_1/0605/imgs/ive02.jpg");
+            fos = new FileOutputStream("D:/Java_Project/FileTest/CopyImageFile1.jpg");
             int ch;
             while ((ch = fis.read()) != -1){
                 fos.write(ch);

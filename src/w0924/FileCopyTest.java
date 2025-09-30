@@ -9,9 +9,9 @@ public class FileCopyTest {
         BufferedReader br = null;
         FileWriter fw = null;
         try {
-            fr = new FileReader("D:/FileTest/MyData1.txt");
+            fr = new FileReader("D:/Java_Project/FileTest/MyData1.txt");
             br = new BufferedReader(fr);
-            fw = new FileWriter("D:/FileTest/CopyFile1.txt");
+            fw = new FileWriter("D:/Java_Project/FileTest/CopyFile1.txt");
             String line;
 
             while ((line = br.readLine())!=null){

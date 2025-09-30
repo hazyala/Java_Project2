@@ -10,12 +10,14 @@ public class SecureFileTest {
         Scanner sc = new Scanner(System.in);
         FileWriter fw = null;
         String line = "";
-        String secureOutStr = "";
+
+        int messageCount = 1;
 
         try {
-            fw = new FileWriter("D:/FileTest/secure1.txt");
-            while (true){
-                System.out.print("Enter Message:");
+            fw = new FileWriter("D:/Java_Project/FileTest/secure1.txt");
+            while (true) {
+                String secureOutStr = "";
+                System.out.println(messageCount + " Message (Enter) :");
                 line = sc.nextLine();
                 if(line.equals(""))
                     break;
@@ -23,9 +25,11 @@ public class SecureFileTest {
                 for (int i = 0; i < line.length(); i++) {
                     int code = (int)line.charAt(i);
                     code += 100;
-                    secureOutStr  += (char)code;
+                    secureOutStr += (char)code;
                 }
                 fw.write(secureOutStr + "\n");
+
+                messageCount++;
             }
 
         } catch (IOException e) {
