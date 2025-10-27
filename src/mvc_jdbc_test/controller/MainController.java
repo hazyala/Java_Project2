@@ -7,18 +7,21 @@ import mvc_jdbc_test.view.CustomerView;
 
 import mvc_jdbc_test.entity.Order;
 import mvc_jdbc_test.view.OrdersView;
+import mvc_jdbc_test.view.inputCustomerInfoView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainController {
     public static void main(String[] args) {
         Connection con= JDBC_Connecter.getConnection();
-        customerListAndView(con);
-        orderListAndView(con);
+       // customerListAndView(con);
+       // orderListAndView(con);
+        inputCustomerInfoProcess(con);
     }
 
     public static void customerListAndView(Connection con){
@@ -72,7 +75,7 @@ public class MainController {
             }
             rs.close();
             ps.close();
-            con.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -82,6 +85,45 @@ public class MainController {
             OrdersView.printOrders(order);
         }
 
+    }
+
+    // 고객정보 입력 및 입력 내용 출력
+    // 고객정보 DB의 고객 테이블에 고객 Entity 추가
+    // 교수닌은 InputAndView 로 되어있음. 나는 inputCustomerInfoProcess
+
+    public static void inputCustomerInfoProcess (Connection con) {
+        Scanner sc = new Scanner(System.in);
+        inputCustomerInfoView inputView = new inputCustomerInfoView();
+        while (true){
+            Customer customer = inputView.inputCustomerInfo();
+            CustomerView customerView = new CustomerView();
+            customerView.printHead();
+            customerView.printCustomerInfo(customer);
+            customerView.printFooter();
+
+            String sql = "INSERT INTO 고객 (고객아이디, 고객이름, 나이, 등급, 직업, 적립금) VALUES (?, ?, ?, ?, ?, ?)";
+            try{
+                PreparedStatement pstmt = con.prepareStatement(sql);
+
+                pstmt.setString(1, customer.getCustomerid());
+                pstmt.setString(2, customer.getCustomername());
+                pstmt.setInt(3, customer.getAge());
+                pstmt.setString(4, customer.getLevel());
+                pstmt.setString(5, customer.getJob());
+                pstmt.setInt(6, customer.getReward());
+                pstmt.executeUpdate();
+                pstmt.close();
+            }
+            catch (SQLException e){
+                System.out.println("Connection Error");
+            }
+            System.out.println("계속 추가하시겠습니까? (C: 계속 / E: 종료) :");
+            String input = sc.nextLine();
+            if (input.equals("e")) {
+                break;
+            }
+        }
+        System.out.println("프로그램 종료");
     }
 
 }

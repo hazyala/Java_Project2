@@ -23,5 +23,18 @@ public class CustomerView {
         System.out.println("============== Print Done ===============");
         System.out.println("=========================================\n");
     }
+
+    public void printCustomerInfo(Customer customer) {
+        System.out.println("=====================================");
+        System.out.println(" 입력된 고객 정보 확인 ");
+        System.out.println("=====================================");
+        System.out.println("고객 ID    : " + customer.getCustomerid());
+        System.out.println("고객 이름  : " + customer.getCustomername());
+        System.out.println("고객 나이  : " + customer.getAge() + "세");
+        System.out.println("고객 등급  : " + customer.getLevel());
+        System.out.println("고객 직업  : " + customer.getJob());
+        System.out.println("고객 적립금: " + customer.getReward() + "점");
+        System.out.println("=====================================");
+    }
 }
 
