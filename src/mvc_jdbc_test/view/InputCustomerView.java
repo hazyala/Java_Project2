@@ -2,7 +2,7 @@ package mvc_jdbc_test.view;
 import mvc_jdbc_test.entity.Customer;
 import java.util.Scanner;
 
-public class inputCustomerInfoView {
+public class InputCustomerView {
     public Customer inputCustomerInfo() {
         Customer customer = new Customer();
         Scanner s1 = new Scanner(System.in);
