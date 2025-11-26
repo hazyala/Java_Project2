@@ -2,10 +2,7 @@ package bookmanagement.repository;
 
 import bookmanagement.domain.BookVO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class BookRepository {
@@ -51,7 +48,54 @@ public class BookRepository {
 
         }
 
-
         return bookVOList;
+    }
+
+    public void insert (BookVO VO) {
+        Connection con = JDBCConnector.getConnection();
+        String sql = "insert into book values(?,?,?,?,?,?)";
+        PreparedStatement psmt = null;
+
+        try{
+            psmt = con.prepareStatement(sql);
+            psmt.setInt(1, VO.getIsbn());
+            psmt.setString(2, VO.getName());
+            psmt.setString(3, VO.getPublish());
+            psmt.setString(4, VO.getAuthor());
+            psmt.setInt(5, VO.getPrice());
+            int categoryId = 0;
+            switch (VO.getCategoryName()){
+                case "IT도서":
+                    categoryId = 10;
+                    break;
+                case "소설":
+                    categoryId = 20;
+                    break;
+                case "비소설":
+                    categoryId = 30;
+                    break;
+                case "경제":
+                    categoryId = 40;
+                    break;
+                case "사회":
+                    categoryId = 50;
+                    break;
+            }
+            psmt.setInt(6, categoryId);
+            psmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(psmt != null)
+                    psmt.close();
+
+                if (con != null)
+                    con.close();
+            }catch (SQLException e){
+                System.out.println("insert close 문제 발생");
+                e.printStackTrace();
+            }
+        }
     }
 }

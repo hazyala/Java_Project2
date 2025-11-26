@@ -11,8 +11,6 @@ import mvc_jdbc_test.view.InputCustomerView;
 import mvc_jdbc_test.view.UpdateCustomerView;
 import mvc_jdbc_test.view.DeleteCustomerView;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
